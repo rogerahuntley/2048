@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://audio/pop.wav" type="AudioStream" id=1]
+[ext_resource path="res://Scripts/grid/Grid.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/touch/swipe.gd" type="Script" id=3]
+
+[node name="Grid" type="Node2D"]
+script = ExtResource( 2 )
+tween = NodePath("Tween")
+spawn_pop = NodePath("spawn_pop")
+tiles = NodePath("Tiles")
+boxes = NodePath("Boxes")
+swipe = NodePath("Swipe")
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="Boxes" type="Node2D" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+playback_speed = 10.0
+playback/speed = 10.0
+
+[node name="spawn_pop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+bus = "Pop"
+
+[node name="Swipe" type="Node" parent="."]
+script = ExtResource( 3 )

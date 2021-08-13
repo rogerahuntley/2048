@@ -1,0 +1,359 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://fonts/logo.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/Grid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fonts/High Score.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/game/current_score.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/game/high_score.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/game/popup_main_menu.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/game/popup_restart.gd" type="Script" id=7]
+[ext_resource path="res://fonts/popup.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Scripts/game/popup_continue.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/options_button.gd" type="Script" id=10]
+[ext_resource path="res://fonts/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf" type="DynamicFontData" id=11]
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 11 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends PopupDialog
+
+func _ready():
+	popup_exclusive = true
+	pass
+"
+
+[node name="Node" type="Node"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 191.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_stretch_ratio = 0.2
+custom_constants/separation = 19
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Top"]
+margin_left = 33.0
+margin_right = 367.0
+margin_bottom = 191.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Label" parent="VBoxContainer/Top/MarginContainer"]
+margin_right = 334.0
+margin_bottom = 191.0
+size_flags_horizontal = 5
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 1 )
+text = "2048"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scores" type="VBoxContainer" parent="VBoxContainer/Top"]
+margin_left = 386.0
+margin_right = 566.0
+margin_bottom = 191.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="Current Score" type="VBoxContainer" parent="VBoxContainer/Top/Scores"]
+margin_top = 18.0
+margin_right = 180.0
+margin_bottom = 72.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Current" type="Label" parent="VBoxContainer/Top/Scores/Current Score"]
+margin_right = 180.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 3 )
+text = "Current Score:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="VBoxContainer/Top/Scores/Current Score"]
+margin_top = 29.0
+margin_right = 180.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 1
+script = ExtResource( 4 )
+grid = NodePath("../../../../CenterContainer/ViewportContainer/Viewport/Grid")
+
+[node name="High Score" type="VBoxContainer" parent="VBoxContainer/Top/Scores"]
+margin_left = 22.0
+margin_top = 76.0
+margin_right = 157.0
+margin_bottom = 130.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+
+[node name="High" type="Label" parent="VBoxContainer/Top/Scores/High Score"]
+margin_right = 135.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 3 )
+text = "High Score:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="VBoxContainer/Top/Scores/High Score"]
+margin_top = 29.0
+margin_right = 135.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 1
+script = ExtResource( 5 )
+grid = NodePath("../../../../CenterContainer/ViewportContainer/Viewport/Grid")
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Top/Scores"]
+margin_top = 134.0
+margin_right = 180.0
+margin_bottom = 138.0
+
+[node name="Button" type="Button" parent="VBoxContainer/Top/Scores"]
+margin_left = 38.0
+margin_top = 142.0
+margin_right = 141.0
+margin_bottom = 173.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "Options"
+script = ExtResource( 10 )
+grid = NodePath("../../../CenterContainer/ViewportContainer/Viewport/Grid")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+margin_top = 195.0
+margin_right = 600.0
+margin_bottom = 800.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="VBoxContainer/CenterContainer"]
+margin_top = 2.0
+margin_right = 600.0
+margin_bottom = 602.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="VBoxContainer/CenterContainer/ViewportContainer"]
+size = Vector2( 600, 600 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Grid" parent="VBoxContainer/CenterContainer/ViewportContainer/Viewport" instance=ExtResource( 2 )]
+fail_popup = NodePath("../../Fail Popup")
+win_popup = NodePath("../../Win Popup")
+options_popup = NodePath("../../Options Popup")
+
+[node name="Fail Popup" type="PopupDialog" parent="VBoxContainer/CenterContainer/ViewportContainer"]
+margin_right = 300.0
+margin_bottom = 150.0
+popup_exclusive = true
+script = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 15
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer"]
+margin_top = 4.0
+margin_right = 300.0
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 8 )
+text = "Game Over!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Restart" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer"]
+margin_top = 52.0
+margin_right = 300.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 8 )
+text = "Restart"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main Menu" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer"]
+margin_top = 106.0
+margin_right = 300.0
+margin_bottom = 145.0
+custom_fonts/font = ExtResource( 8 )
+text = "Main Menu"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Win Popup" type="PopupDialog" parent="VBoxContainer/CenterContainer/ViewportContainer"]
+margin_right = 300.0
+margin_bottom = 200.0
+popup_exclusive = true
+script = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 15
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
+margin_top = 2.0
+margin_right = 300.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 8 )
+text = "You win!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Continue" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
+margin_top = 50.0
+margin_right = 300.0
+margin_bottom = 89.0
+custom_fonts/font = ExtResource( 8 )
+text = "Continue"
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+popup = NodePath("../..")
+grid = NodePath("../../../Viewport/Grid")
+
+[node name="Restart" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
+margin_top = 104.0
+margin_right = 300.0
+margin_bottom = 143.0
+custom_fonts/font = ExtResource( 8 )
+text = "Restart"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main Menu" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
+margin_top = 158.0
+margin_right = 300.0
+margin_bottom = 197.0
+custom_fonts/font = ExtResource( 8 )
+text = "Main Menu"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options Popup" type="PopupDialog" parent="VBoxContainer/CenterContainer/ViewportContainer"]
+margin_right = 300.0
+margin_bottom = 200.0
+popup_exclusive = true
+script = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 15
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
+margin_top = 2.0
+margin_right = 300.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 8 )
+text = "Options"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Continue" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
+margin_top = 50.0
+margin_right = 300.0
+margin_bottom = 89.0
+custom_fonts/font = ExtResource( 8 )
+text = "Continue"
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+popup = NodePath("../..")
+grid = NodePath("../../../Viewport/Grid")
+
+[node name="Restart" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
+margin_top = 104.0
+margin_right = 300.0
+margin_bottom = 143.0
+custom_fonts/font = ExtResource( 8 )
+text = "Restart"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main Menu" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
+margin_top = 158.0
+margin_right = 300.0
+margin_bottom = 197.0
+custom_fonts/font = ExtResource( 8 )
+text = "Main Menu"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

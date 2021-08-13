@@ -1,0 +1,4 @@
+music: https://gamesounds.xyz/Public%20Domain/Chill/Chill%20Cool%20NIght.mp3
+pop sound: https://freesound.org/people/greenvwbeetle/sounds/244656/
+font: https://fonts.google.com/specimen/Squada+One
+font: https://fonts.google.com/specimen/ZCOOL+KuaiLe
