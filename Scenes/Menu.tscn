@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://fonts/logo.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Grid.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://Scripts/game/popup_continue.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/options_button.gd" type="Script" id=10]
 [ext_resource path="res://fonts/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://fonts/button.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Scenes/LeaderboardWin.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=3]
 size = 24
@@ -24,6 +26,26 @@ func _ready():
 	pass
 "
 
+[sub_resource type="GDScript" id=5]
+script/source = "extends Button
+
+# Fail Button
+export(NodePath) onready var grid = get_node(grid) as Node
+
+func _pressed():
+	grid.end_fail()
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Button
+
+# Win Button
+export(NodePath) onready var grid = get_node(grid) as Node
+
+func _pressed():
+	grid.end_win()
+"
+
 [node name="Node" type="Node"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -32,9 +54,6 @@ anchor_bottom = 1.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Top" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 600.0
@@ -108,7 +127,6 @@ custom_fonts/font = ExtResource( 3 )
 text = "0"
 align = 1
 script = ExtResource( 4 )
-grid = NodePath("../../../../CenterContainer/ViewportContainer/Viewport/Grid")
 
 [node name="High Score" type="VBoxContainer" parent="VBoxContainer/Top/Scores"]
 margin_left = 22.0
@@ -138,7 +156,6 @@ custom_fonts/font = ExtResource( 3 )
 text = "0"
 align = 1
 script = ExtResource( 5 )
-grid = NodePath("../../../../CenterContainer/ViewportContainer/Viewport/Grid")
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/Top/Scores"]
 margin_top = 134.0
@@ -189,24 +206,33 @@ win_popup = NodePath("../../Win Popup")
 options_popup = NodePath("../../Options Popup")
 
 [node name="Fail Popup" type="PopupDialog" parent="VBoxContainer/CenterContainer/ViewportContainer"]
-margin_right = 300.0
-margin_bottom = 150.0
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 100.0
 popup_exclusive = true
 script = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -173.5
+margin_top = -121.5
+margin_right = 173.5
+margin_bottom = 121.5
 custom_constants/separation = 15
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer"]
-margin_top = 4.0
-margin_right = 300.0
-margin_bottom = 37.0
+margin_top = 5.0
+margin_right = 347.0
+margin_bottom = 38.0
 custom_fonts/font = ExtResource( 8 )
 text = "Game Over!"
 align = 1
@@ -215,9 +241,9 @@ __meta__ = {
 }
 
 [node name="Restart" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer"]
-margin_top = 52.0
-margin_right = 300.0
-margin_bottom = 91.0
+margin_top = 53.0
+margin_right = 347.0
+margin_bottom = 92.0
 custom_fonts/font = ExtResource( 8 )
 text = "Restart"
 script = ExtResource( 7 )
@@ -226,9 +252,9 @@ __meta__ = {
 }
 
 [node name="Main Menu" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer"]
-margin_top = 106.0
-margin_right = 300.0
-margin_bottom = 145.0
+margin_top = 107.0
+margin_right = 347.0
+margin_bottom = 146.0
 custom_fonts/font = ExtResource( 8 )
 text = "Main Menu"
 script = ExtResource( 6 )
@@ -236,25 +262,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Leaderboard" parent="VBoxContainer/CenterContainer/ViewportContainer/Fail Popup/VBoxContainer" instance=ExtResource( 13 )]
+
 [node name="Win Popup" type="PopupDialog" parent="VBoxContainer/CenterContainer/ViewportContainer"]
-margin_right = 300.0
-margin_bottom = 200.0
+visible = true
+margin_right = 400.0
+margin_bottom = 350.0
 popup_exclusive = true
 script = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -173.5
+margin_top = -143.0
+margin_right = 173.5
+margin_bottom = 143.0
 custom_constants/separation = 15
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
-margin_top = 2.0
-margin_right = 300.0
-margin_bottom = 35.0
+margin_right = 347.0
+margin_bottom = 33.0
 custom_fonts/font = ExtResource( 8 )
 text = "You win!"
 align = 1
@@ -263,9 +294,9 @@ __meta__ = {
 }
 
 [node name="Continue" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
-margin_top = 50.0
-margin_right = 300.0
-margin_bottom = 89.0
+margin_top = 48.0
+margin_right = 347.0
+margin_bottom = 87.0
 custom_fonts/font = ExtResource( 8 )
 text = "Continue"
 script = ExtResource( 9 )
@@ -276,9 +307,9 @@ popup = NodePath("../..")
 grid = NodePath("../../../Viewport/Grid")
 
 [node name="Restart" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
-margin_top = 104.0
-margin_right = 300.0
-margin_bottom = 143.0
+margin_top = 102.0
+margin_right = 347.0
+margin_bottom = 141.0
 custom_fonts/font = ExtResource( 8 )
 text = "Restart"
 script = ExtResource( 7 )
@@ -287,9 +318,9 @@ __meta__ = {
 }
 
 [node name="Main Menu" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer"]
-margin_top = 158.0
-margin_right = 300.0
-margin_bottom = 197.0
+margin_top = 156.0
+margin_right = 347.0
+margin_bottom = 195.0
 custom_fonts/font = ExtResource( 8 )
 text = "Main Menu"
 script = ExtResource( 6 )
@@ -297,25 +328,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Leaderboard" parent="VBoxContainer/CenterContainer/ViewportContainer/Win Popup/VBoxContainer" instance=ExtResource( 13 )]
+margin_top = 210.0
+margin_bottom = 286.0
+
 [node name="Options Popup" type="PopupDialog" parent="VBoxContainer/CenterContainer/ViewportContainer"]
-margin_right = 300.0
-margin_bottom = 200.0
+visible = true
+margin_right = 350.0
+margin_bottom = 250.0
 popup_exclusive = true
 script = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -97.5
+margin_right = 150.0
+margin_bottom = 97.5
+rect_min_size = Vector2( 300, 0 )
 custom_constants/separation = 15
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
-margin_top = 2.0
 margin_right = 300.0
-margin_bottom = 35.0
+margin_bottom = 33.0
 custom_fonts/font = ExtResource( 8 )
 text = "Options"
 align = 1
@@ -324,9 +363,9 @@ __meta__ = {
 }
 
 [node name="Continue" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
-margin_top = 50.0
+margin_top = 48.0
 margin_right = 300.0
-margin_bottom = 89.0
+margin_bottom = 87.0
 custom_fonts/font = ExtResource( 8 )
 text = "Continue"
 script = ExtResource( 9 )
@@ -337,9 +376,9 @@ popup = NodePath("../..")
 grid = NodePath("../../../Viewport/Grid")
 
 [node name="Restart" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
-margin_top = 104.0
+margin_top = 102.0
 margin_right = 300.0
-margin_bottom = 143.0
+margin_bottom = 141.0
 custom_fonts/font = ExtResource( 8 )
 text = "Restart"
 script = ExtResource( 7 )
@@ -348,12 +387,36 @@ __meta__ = {
 }
 
 [node name="Main Menu" type="Button" parent="VBoxContainer/CenterContainer/ViewportContainer/Options Popup/VBoxContainer"]
-margin_top = 158.0
+margin_top = 156.0
 margin_right = 300.0
-margin_bottom = 197.0
+margin_bottom = 195.0
 custom_fonts/font = ExtResource( 8 )
 text = "Main Menu"
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Debug" type="Node" parent="."]
+
+[node name="Fail" type="Button" parent="Debug"]
+visible = false
+margin_left = 429.413
+margin_top = 195.998
+margin_right = 587.413
+margin_bottom = 282.998
+custom_fonts/font = ExtResource( 12 )
+text = "Fail"
+script = SubResource( 5 )
+grid = NodePath("../../VBoxContainer/CenterContainer/ViewportContainer/Viewport/Grid")
+
+[node name="Win" type="Button" parent="Debug"]
+visible = false
+margin_left = 451.686
+margin_top = 294.887
+margin_right = 588.686
+margin_bottom = 381.887
+custom_fonts/font = ExtResource( 12 )
+text = "Win"
+script = SubResource( 6 )
+grid = NodePath("../../VBoxContainer/CenterContainer/ViewportContainer/Viewport/Grid")

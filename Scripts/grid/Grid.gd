@@ -43,6 +43,7 @@ func reset():
 	get_tree().change_scene("res://Scenes/Menu.tscn")
 
 func end_fail():
+	Leaderboard.emit_signal("high_score_set", self.score)
 	can_move = false
 	if !fail_popup.visible:
 		fail_popup.popup_centered()
@@ -53,6 +54,7 @@ func options_pop():
 		options_popup.popup_centered()
 
 func end_win():
+	Leaderboard.emit_signal("high_score_set", self.score)
 	can_move = false
 	has_won = true
 	if !win_popup.visible:
@@ -272,3 +274,4 @@ func allow_move():
 
 func add_score(score):
 	self.score += score
+	Leaderboard.emit_signal("score_set", self.score)

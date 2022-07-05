@@ -2,7 +2,7 @@
 
 [ext_resource path="res://audio/pop.wav" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/grid/Grid.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/touch/swipe.gd" type="Script" id=3]
+[ext_resource path="res://addons/stealdog-common/Touch/Swipe.gd" type="Script" id=3]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource( 2 )
@@ -26,3 +26,7 @@ bus = "Pop"
 
 [node name="Swipe" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0

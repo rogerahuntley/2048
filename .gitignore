@@ -24,3 +24,6 @@ data_*/
 
 # capture folder
 out/
+
+# env variables
+env.tres

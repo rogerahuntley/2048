@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fonts/High Score.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/main/LeaderboardEntry.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxLine" id=1]
+color = Color( 1, 1, 1, 1 )
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxLine" id=2]
+color = Color( 1, 1, 1, 1 )
+thickness = 2
+
+[node name="Entry" type="VBoxContainer"]
+anchor_right = 1.0
+custom_constants/separation = 0
+script = ExtResource( 2 )
+rank = NodePath("EntryData/Rank")
+user = NodePath("EntryData/User")
+points = NodePath("EntryData/Points")
+
+[node name="EntryData" type="HBoxContainer" parent="."]
+margin_right = 600.0
+margin_bottom = 55.0
+
+[node name="Rank" type="Label" parent="EntryData"]
+margin_top = 15.0
+margin_right = 50.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 50, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "#1"
+align = 1
+
+[node name="VSeparator" type="VSeparator" parent="EntryData"]
+margin_left = 54.0
+margin_right = 58.0
+margin_bottom = 55.0
+custom_styles/separator = SubResource( 1 )
+
+[node name="User" type="Label" parent="EntryData"]
+margin_left = 62.0
+margin_right = 329.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 0, 55 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Roger"
+valign = 1
+
+[node name="Points" type="Label" parent="EntryData"]
+margin_left = 333.0
+margin_top = 15.0
+margin_right = 600.0
+margin_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "5565656"
+align = 2
+
+[node name="HSeparator" type="HSeparator" parent="."]
+margin_top = 55.0
+margin_right = 600.0
+margin_bottom = 59.0
+custom_styles/separator = SubResource( 2 )
