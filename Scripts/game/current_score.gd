@@ -1,9 +1,8 @@
 extends Label
 
-export(NodePath) onready var grid = get_node(grid) as Node
+func _ready():
+	Leaderboard.connect("score_set", self, "set_score")
+	text=str(Leaderboard.score)
 
-func _process(delta):
-	set_score_display(grid.score)
-
-func set_score_display(score):
-	text = str(score)
+func set_score(score):
+	text=str(score)

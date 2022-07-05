@@ -1,0 +1,176 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/main/user.gd" type="Script" id=1]
+[ext_resource path="res://fonts/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/High Score.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/main/rank.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/main/button_main.gd" type="Script" id=5]
+[ext_resource path="res://fonts/logo.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Scripts/LeaderboardList.gd" type="Script" id=8]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends VBoxContainer
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.visible = Leaderboard.user != \"\"
+"
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 2 )
+
+[node name="Node" type="Node"]
+
+[node name="LeaderboardError" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -266.5
+margin_top = -26.5
+margin_right = 266.5
+margin_bottom = 26.5
+custom_fonts/font = ExtResource( 3 )
+text = "Loaderboard could not be loaded.
+Are you connected to the internet?"
+align = 1
+valign = 1
+
+[node name="Top" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -266.5
+margin_right = 266.5
+margin_bottom = 191.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_stretch_ratio = 0.2
+custom_constants/separation = 19
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Top"]
+margin_left = 21.0
+margin_right = 355.0
+margin_bottom = 191.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Label" parent="Top/MarginContainer"]
+margin_right = 334.0
+margin_bottom = 191.0
+size_flags_horizontal = 5
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 7 )
+text = "2048"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scores" type="VBoxContainer" parent="Top"]
+margin_left = 374.0
+margin_right = 512.0
+margin_bottom = 191.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="User" type="VBoxContainer" parent="Top/Scores"]
+margin_left = 38.0
+margin_top = 18.0
+margin_right = 99.0
+margin_bottom = 72.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+script = SubResource( 4 )
+
+[node name="Label" type="Label" parent="Top/Scores/User"]
+margin_right = 61.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 3 )
+text = "User:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="Top/Scores/User"]
+margin_top = 29.0
+margin_right = 61.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 1
+script = ExtResource( 1 )
+
+[node name="Rank" type="VBoxContainer" parent="Top/Scores"]
+margin_left = 3.0
+margin_top = 76.0
+margin_right = 134.0
+margin_bottom = 130.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Top/Scores/Rank"]
+margin_right = 131.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 3 )
+text = "Your Rank:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="Top/Scores/Rank"]
+margin_top = 29.0
+margin_right = 131.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 1
+script = ExtResource( 4 )
+
+[node name="HSeparator" type="HSeparator" parent="Top/Scores"]
+margin_top = 134.0
+margin_right = 138.0
+margin_bottom = 138.0
+
+[node name="Button" type="Button" parent="Top/Scores"]
+margin_top = 142.0
+margin_right = 138.0
+margin_bottom = 173.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "Main Menu"
+script = ExtResource( 5 )
+
+[node name="LeaderboardList" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -200.0
+margin_right = 250.0
+margin_bottom = -200.0
+rect_min_size = Vector2( 500, 0 )
+custom_constants/separation = 0
+script = ExtResource( 8 )
+entry_path = "res://Scenes/LeaderboardEntry.tscn"
+load_error = NodePath("../LeaderboardError")

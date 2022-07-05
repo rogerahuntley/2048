@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Chill.wav-0bab10f6d22e05ff3ee1317f8b1cd0c1.sample"
+
+[deps]
+
+source_file="res://audio/Chill.wav"
+dest_files=[ "res://.import/Chill.wav-0bab10f6d22e05ff3ee1317f8b1cd0c1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,18 +1,32 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://fonts/Squada_One/SquadaOne-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://fonts/button.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Scripts/main/button_play.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/main/high_score_display.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/game/high_score.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/main/button_quit.gd" type="Script" id=5]
 [ext_resource path="res://tiles/music_blocked.png" type="Texture" id=6]
 [ext_resource path="res://tiles/music.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/main/mute_button.gd" type="Script" id=8]
-[ext_resource path="res://fonts/High Score.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/popup.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Scripts/main/button_leader.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/main/user.gd" type="Script" id=11]
+[ext_resource path="res://fonts/box.tres" type="DynamicFont" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 220
 font_data = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends HBoxContainer
+
+func _ready():
+	Leaderboard.connect(\"user_name_set\", self, \"user_visible\")
+	user_visible()
+
+func user_visible(_user = null):
+	self.visible = Leaderboard.user != \"\"
+"
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://fonts/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf"
@@ -25,23 +39,29 @@ font_data = SubResource( 2 )
 size = 50
 font_data = SubResource( 2 )
 
+[sub_resource type="GDScript" id=6]
+script/source = "extends Button
+
+# Called when the node enters the scene tree for the first time.
+func _pressed():
+	Leaderboard.set_empty_save()
+"
+
 [node name="Node" type="Node"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.000700785
-anchor_right = 1.0007
-anchor_bottom = 1.0
-margin_left = 49.5795
-margin_top = 83.0
-margin_right = -50.42
-margin_bottom = -76.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -276.5
+margin_top = -307.5
+margin_right = 276.5
+margin_bottom = 307.5
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Logo" type="Label" parent="VBoxContainer"]
-margin_right = 500.0
+margin_right = 554.0
 margin_bottom = 234.0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 1 )
@@ -51,28 +71,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="High Score" type="HBoxContainer" parent="VBoxContainer"]
-margin_left = 123.0
+[node name="User" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 238.0
-margin_right = 376.0
+margin_right = 554.0
 margin_bottom = 288.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
+script = SubResource( 5 )
 
-[node name="High" type="Label" parent="VBoxContainer/High Score"]
+[node name="User" type="Label" parent="VBoxContainer/User"]
 margin_top = 4.0
-margin_right = 216.0
+margin_right = 300.0
 margin_bottom = 45.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 3 )
+text = "User:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="VBoxContainer/User"]
+margin_left = 304.0
+margin_right = 554.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 4 )
+align = 2
+script = ExtResource( 11 )
+
+[node name="High Score2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 292.0
+margin_right = 554.0
+margin_bottom = 342.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="High" type="Label" parent="VBoxContainer/High Score2"]
+margin_top = 4.0
+margin_right = 300.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 300, 0 )
 custom_fonts/font = SubResource( 3 )
 text = "High Score:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="VBoxContainer/High Score"]
-margin_left = 220.0
-margin_right = 253.0
+[node name="Score" type="Label" parent="VBoxContainer/High Score2"]
+margin_left = 304.0
+margin_right = 554.0
 margin_bottom = 50.0
+rect_min_size = Vector2( 250, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 4 )
 text = "0"
@@ -80,25 +130,25 @@ align = 2
 script = ExtResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 292.0
-margin_right = 500.0
-margin_bottom = 392.0
+margin_top = 346.0
+margin_right = 554.0
+margin_bottom = 446.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_left = 161.0
-margin_top = 37.0
-margin_right = 235.0
-margin_bottom = 62.0
+margin_left = 177.0
+margin_top = 33.0
+margin_right = 272.0
+margin_bottom = 66.0
 custom_fonts/font = ExtResource( 9 )
 text = "Music:"
 
 [node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-margin_left = 239.0
-margin_right = 339.0
+margin_left = 276.0
+margin_right = 376.0
 margin_bottom = 100.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -111,34 +161,46 @@ stretch_mode = 3
 script = ExtResource( 8 )
 
 [node name="buttons" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 475.0
-margin_right = 500.0
-margin_bottom = 562.0
+margin_top = 450.0
+margin_right = 554.0
+margin_bottom = 615.0
 size_flags_horizontal = 5
 size_flags_vertical = 6
 custom_constants/separation = 15
 alignment = 1
 
 [node name="play" type="Button" parent="VBoxContainer/buttons"]
-margin_left = 156.0
-margin_right = 343.0
-margin_bottom = 87.0
+margin_left = 220.0
+margin_right = 333.0
+margin_bottom = 75.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 12 )
 text = "Play"
 script = ExtResource( 3 )
 
-[node name="reset" type="Button" parent="VBoxContainer/buttons"]
-visible = false
-margin_left = 68.0
-margin_top = 102.0
-margin_right = 431.0
-margin_bottom = 189.0
+[node name="leader" type="Button" parent="VBoxContainer/buttons"]
+margin_left = 111.0
+margin_top = 90.0
+margin_right = 442.0
+margin_bottom = 165.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
-custom_fonts/font = ExtResource( 2 )
-text = "Settings"
+custom_fonts/font = ExtResource( 12 )
+text = "Leaderboards"
+script = ExtResource( 10 )
+
+[node name="reset" type="Button" parent="VBoxContainer/buttons"]
+visible = false
+margin_left = 142.0
+margin_top = 180.0
+margin_right = 411.0
+margin_bottom = 255.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 12 )
+text = "Reset Save"
+script = SubResource( 6 )
 
 [node name="quit" type="Button" parent="VBoxContainer/buttons"]
 visible = false
@@ -151,3 +213,7 @@ size_flags_vertical = 0
 custom_fonts/font = ExtResource( 2 )
 text = "Quit"
 script = ExtResource( 5 )
+
+[node name="Popup" type="Popup" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0

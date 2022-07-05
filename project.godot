@@ -9,13 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "ENV",
+"language": "GDScript",
+"path": "res://Scripts/env-res.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "Node",
+"class": "Swipe",
+"language": "GDScript",
+"path": "res://addons/stealdog-common/Touch/Swipe.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"ENV": "",
+"GitAPI": "",
+"Swipe": ""
 }
 
 [application]
@@ -27,20 +39,27 @@ config/quit_on_go_back=false
 
 [audio]
 
+driver=""
+output_latency=50
 output_latency.web=100
 
 [autoload]
 
 Music="*res://Scenes/Music.tscn"
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+Leaderboard="*res://Scripts/Leaderboard.gd"
 
 [display]
 
 window/size/width=600
 window/size/height=800
-window/size/resizable=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/silent_wolf/plugin.cfg", "res://addons/stealdog-common/plugin.cfg" )
 
 [gdnative]
 
@@ -49,6 +68,10 @@ singletons=[ "res://git_api.gdnlib" ]
 [global]
 
 stretch=false
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
