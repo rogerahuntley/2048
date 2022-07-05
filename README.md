@@ -9,8 +9,8 @@ you need two addons
 
 just download these and put them in your addons folder
 
-* [https://silentwolf.com/download](silentwolf)
-* [https://github.com/rogerahuntley/stealdog-common](stealdog-common)
+* [silentwolf](https://silentwolf.com/download)
+* [stealdog-common](https://github.com/rogerahuntley/stealdog-common)
 
 ## setup
 
